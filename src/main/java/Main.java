@@ -1,5 +1,16 @@
 import java.util.*;
 
+
+//S - код программы разделен на классы, у каждого из которых своя функция
+//O - не меняя класс Item, с помощью наследования добавила необходимые поля в классы Toy и Food
+//L - классы Toy и Food являются наследниками Item и могут заменить собой предка, по сути являясь его расширением
+//I - интерфейс с одним методом для конкретного назначения
+//D - при выборе фильтрации зависим от интерфейса Sorting, а не от конкретных реализаций
+
+//В методах нет зависимостей от количества товаров - избегание магических чисел
+
+//Действия, которые необходимо выполнять несколько раз, вынесены в отдельные методы (правило DRY)
+
 public class Main {
     public static void main(String[] args) {
         Map<String, List<Item>> goods = new HashMap<>();
@@ -39,15 +50,15 @@ public class Main {
                 System.out.println("3 - фильтр по рейтингу");
                 String filterNumber = scanner.nextLine();
                 switch (filterNumber){
-                    case "1": SortByName byName = new SortByName();
+                    case "1": Sorting byName = new SortByName();
                         byName.sorting(goods.get(categoryStr));
                         printGoods(goods, categoryStr);
                         break;
-                    case "2": SortByPrice byPrice = new SortByPrice();
+                    case "2": Sorting byPrice = new SortByPrice();
                         byPrice.sorting(goods.get(categoryStr));
                         printGoods(goods, categoryStr);
                         break;
-                    case "3": SortByRating byRating = new SortByRating();
+                    case "3": Sorting byRating = new SortByRating();
                         byRating.sorting(goods.get(categoryStr));
                         printGoods(goods, categoryStr);
                 }
@@ -70,6 +81,8 @@ public class Main {
         user.printCart();
         System.out.println("Общая стоимость: " + user.sumCost());
     }
+
+
 
     public static void printCategory(Map<String, List<Item>> goods){
         int i = 0;
